@@ -12,7 +12,7 @@ class ServiceTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('services', function(Blueprint $table)
+		Schema::create('offices', function(Blueprint $table)
 		{
 			$table->increments('id');
             $table->string('title');
@@ -20,6 +20,36 @@ class ServiceTable extends Migration {
             $table->string('phone');
             $table->timestamps();
 		});
+
+        Schema::create('users', function(Blueprint $table)  // administrators, managers, clients
+        {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('phone');
+            $table->string('email');
+            $table->boolean('trusted');   // only for client
+            $table->integer('successful_records', false, true);   // only for client
+            $table->integer('unsuccessful_records', false, true);  // only for client
+            $table->integer('office_id', false, true);   // only for staff
+            $table->enum('type', ['client', 'manager', 'admin']);
+            $table->timestamps();
+
+        });
+
+        Schema::create('services', function(Blueprint $table)
+        {
+
+        });
+
+        Schema::create('office_service', function(Blueprint $table)
+        {
+
+        });
+
+        Schema::create('', function(Blueprint $table)
+        {
+
+        });
 	}
 
 	/**

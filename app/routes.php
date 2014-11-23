@@ -11,6 +11,8 @@
 |
 */
 
+Route::when('*', 'csrf', ['post', 'put', 'patch']);
+
 Route::get('/', function()
 {
 //    return 'wtf?';
@@ -24,3 +26,6 @@ Route::get('contacts', function()
 {
     return View::make('contacts');
 });
+
+
+Route::resource('admin/office', 'OfficeController');
