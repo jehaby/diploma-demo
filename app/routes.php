@@ -28,4 +28,6 @@ Route::get('contacts', function()
 });
 
 
+
 Route::resource('admin/office', 'OfficeController');
+

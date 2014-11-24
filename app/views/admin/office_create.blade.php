@@ -14,26 +14,26 @@
     </div>
 </div>
 
-<form class="form-horizontal" role="form">
+<form class="form-horizontal" role="form" method="POST" action="{{ url('admin/office')}}">
     <div class="form-group">
         <label class="col-sm-2 control-label" for="inputTitle">Название</label>
-        <div class="col-sm-10"><input class="form-control" type="text" name="" id="inputTitle"/></div>
+        <div class="col-sm-10"><input class="form-control" type="text" name="title" id="inputTitle"/></div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-2 control-label" for="inputPhone">Телефон</label>
-        <div class="col-sm-10"><input class="form-control" type="text" name="" id="inputPhone"/></div>
+        <div class="col-sm-10"><input class="form-control" type="text" name="phone" id="inputPhone"/></div>
     </div>
 
     <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">Электронная почта</label>
         <div class="col-sm-10">
-            <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+            <input type="email" class="form-control" id="inputEmail3" placeholder="Email" name="email">
         </div>
     </div>
 
     <div class="form-group"><label class="col-sm-2 control-label" for="inputAdress">Адрес</label>
-        <div class="col-sm-10"><textarea class="form-control" name="" id="inputAdress" rows="5"></textarea>
+        <div class="col-sm-10"><textarea class="form-control" name="adress" id="inputAdress" rows="5"></textarea>
         </div>
     </div>
 
@@ -42,23 +42,21 @@
         <label class="col-sm-2 control-label" for="schedule">Расписание</label>
         <div class="col-sm-10" id="schedule">
 
-            @foreach([1, 2, 3, 4, 5, 6, 7] as $i)
+            @foreach(['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'] as $k => $v)
             <div class="row">
-            <label class="col-sm-2 control-label" for="monday"> ПН </label>
-            <div class="col-sm-8" id="monday">
-                <input id="ex7" type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="5" data-slider-enabled="false"/>
-                <input id="ex7-enabled" type="checkbox"/> Enabled
-            </div>
+                <label class="col-sm-2 control-label" for="'{{ 'day' . ($k+1) }}"> {{ $v }}  </label>
+                <div class="col-sm-8" id=" {{ 'day' . ($k+1) }}">
+                    <input id="slider{{$k + 1}}" type="text" data-slider-min="0" data-slider-max="24"
+                           data-slider-step="0.5" data-slider-value="[8, 18]" data-slider-enabled="true" name=" {{ 'day' . ($k+1) }}"/>
+                    <input id="slider{{$k + 1}}-enabled" type="checkbox" name=" {{ 'isdayoff' . ($k+1) }}"/> Не работает
+                </div>
             </div>
             @endforeach
 
-            <div class="row">
-            <label class="col-sm-2 control-label" for="tuesday"> ВТ </label>
-            <div class="col-sm-8" id="tuesday">
-                <input id="ex8" type="text" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="5" data-slider-enabled="false"/>
-                <input id="ex8-enabled" type="checkbox"/> Enabled
-            </div>
-            </div>
+                <div class="col-sm-offset-2 col-sm-10">
+<!--                    TODO: make it work-->
+                    <button class="btn btn-sm btn-default " type="button">Сбросить расписание</button>
+                </div>
 
         </div>
     </div>
@@ -71,28 +69,32 @@
 
 
     <script>
-//        With JQuery
+        //        With JQuery
         for(var i = 1; i<9; i++) {
-            var s = "#ex" + i;
-            console.log(s);
-            $(s).slider();
+            var slider_id = "#slider" + i;
+            var checkbox_id = "#slider" + i + "-enabled";
+
+            $(slider_id).slider();
+
+            $(checkbox_id).click(function() {
+                console.log(checkbox_id);
+                if(!this.checked) {
+                    $(slider_id).slider("enable");
+                }
+                else {
+                    console.log('disable?', slider_id);
+                    $(slider_id).slider("disable");
+                }
+            });
+
         }
-//        $("#ex7").slider();
-//        $("#ex8").slider();
+        //        $("#ex7").slider();
+        //        $("#ex8").slider();
 
-        $("#ex7-enabled").click(function() {
-            if(this.checked) {
-                // With JQuery
-                $("#ex7").slider("enable");
-
-            }
-            else {
-                // With JQuery
-                $("#ex7").slider("disable");
-            }
-        });
 
     </script>
+
+    {{ Form::token() }}
 
 </form>
 

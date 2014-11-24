@@ -9,8 +9,8 @@ class OfficeController extends \BaseController {
 	 */
 	public function index()
 	{
-
-        return View::make('admin.offices');
+        $data = Office::all();
+        return View::make('admin.offices')->with('data', $data);
 		//
 	}
 
@@ -23,7 +23,6 @@ class OfficeController extends \BaseController {
 	public function create()
 	{
         return View::make('admin.office_create');
-		//
 	}
 
 
@@ -34,6 +33,15 @@ class OfficeController extends \BaseController {
 	 */
 	public function store()
 	{
+
+        $office = new Office();
+        $office->title = Input::get('title');
+        $office->adress = Input::get('adress');
+        $office->phone = Input::get('phone');
+        $office->phone = Input::get('email');
+        $office->save();
+
+        return Redirect::action('OfficeController@index');
 		//
 	}
 

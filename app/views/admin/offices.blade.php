@@ -4,5 +4,6 @@
 @section('content')
 <div class="col-md-12">
 Show all offices
+    {{ d($data) }}
 </div>
 @stop

@@ -16,40 +16,41 @@ class ServiceTable extends Migration {
 		{
 			$table->increments('id');
             $table->string('title');
+            $table->string('email');
             $table->string('adress');
             $table->string('phone');
             $table->timestamps();
 		});
 
-        Schema::create('users', function(Blueprint $table)  // administrators, managers, clients
-        {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('phone');
-            $table->string('email');
-            $table->boolean('trusted');   // only for client
-            $table->integer('successful_records', false, true);   // only for client
-            $table->integer('unsuccessful_records', false, true);  // only for client
-            $table->integer('office_id', false, true);   // only for staff
-            $table->enum('type', ['client', 'manager', 'admin']);
-            $table->timestamps();
-
-        });
-
-        Schema::create('services', function(Blueprint $table)
-        {
-
-        });
-
-        Schema::create('office_service', function(Blueprint $table)
-        {
-
-        });
-
-        Schema::create('', function(Blueprint $table)
-        {
-
-        });
+//        Schema::create('users', function(Blueprint $table)  // administrators, managers, clients
+//        {
+//            $table->increments('id');
+//            $table->string('name');
+//            $table->string('phone');
+//            $table->string('email');
+//            $table->boolean('trusted');   // only for client
+//            $table->integer('successful_records', false, true);   // only for client
+//            $table->integer('unsuccessful_records', false, true);  // only for client
+//            $table->integer('office_id', false, true);   // only for staff
+//            $table->enum('type', ['client', 'manager', 'admin']);
+//            $table->timestamps();
+//
+//        });
+//
+//        Schema::create('services', function(Blueprint $table)
+//        {
+//
+//        });
+//
+//        Schema::create('office_service', function(Blueprint $table)
+//        {
+//
+//        });
+//
+//        Schema::create('', function(Blueprint $table)
+//        {
+//
+//        });
 	}
 
 	/**
@@ -59,7 +60,8 @@ class ServiceTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('services');
+        Schema::drop('offices');
+//		Schema::drop('services');
 	}
 
 }

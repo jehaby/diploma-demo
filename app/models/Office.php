@@ -3,6 +3,8 @@
 
 class Office extends Eloquent {
 
+
+
     public function staff()
     {
 
