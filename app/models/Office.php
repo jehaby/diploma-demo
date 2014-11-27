@@ -3,16 +3,20 @@
 
 class Office extends Eloquent {
 
+//
+//    public function staff()
+//    {
+//
+//    }
+//
+//    public function clients()
+//    {
+//
+//    }
 
-
-    public function staff()
+    public function schedule()
     {
-
-    }
-
-    public function clients()
-    {
-
+        return $this->belongsTo('Schedule');
     }
 
 } 

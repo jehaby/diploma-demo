@@ -1,9 +1,16 @@
 @extends('admin.layout')
 
 
+
+
 @section('content')
-<div class="col-md-12">
-Show all offices
-    {{ d($data) }}
-</div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            @foreach($offices as $office)
+                <p><a href="{{ action('OfficeController@show', $office->id) }}">{{ $office->title }}</a></p>
+            @endforeach
+        </div>
+    </div>
 @stop

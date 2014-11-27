@@ -12,6 +12,13 @@ class ServiceTable extends Migration {
 	 */
 	public function up()
 	{
+		Schema::create('schedules', function(Blueprint $table)
+		{
+			$table->increments('id');
+			$table->string('title', 50);
+			$table->timestamps();
+		});
+
 		Schema::create('offices', function(Blueprint $table)
 		{
 			$table->increments('id');
@@ -19,8 +26,32 @@ class ServiceTable extends Migration {
             $table->string('email');
             $table->string('adress');
             $table->string('phone');
+			$table->integer('schedule_id')->unsigned();
+			$table->foreign('schedule_id')->references('id')->on('schedules');
             $table->timestamps();
 		});
+
+		Schema::create('days', function(Blueprint $table)
+		{
+			$table->increments('id');
+			$table->time('start');
+			$table->time('end');
+			$table->time('break_start');
+			$table->time('break_end');
+			$table->timestamps();
+		});
+
+		Schema::create('day_schedule', function(Blueprint $table)
+		{
+			$table->integer('schedule_id')->unsigned();
+			$table->foreign('schedule_id')->references('id')->on('schedules');
+			$table->integer('day_id')->unsigned();
+			$table->foreign('day_id')->references('id')->on('days');
+			$table->tinyInteger('day_of_week')->unsigned(); // day of the week, from 1 to 7. 1 -- Monday, 2 -- Tuesday, .. etc
+			$table->unique(['schedule_id', 'day_id', 'day_of_week']);
+			$table->timestamps();
+		});
+
 
 //        Schema::create('users', function(Blueprint $table)  // administrators, managers, clients
 //        {
@@ -48,7 +79,7 @@ class ServiceTable extends Migration {
 //        });
 //
 //        Schema::create('', function(Blueprint $table)
-//        {
+//        {pp
 //
 //        });
 	}
@@ -60,7 +91,11 @@ class ServiceTable extends Migration {
 	 */
 	public function down()
 	{
-        Schema::drop('offices');
+		Schema::drop('day_schedule');
+		Schema::drop('offices');
+		Schema::drop('schedules');
+		Schema::drop('days');
+
 //		Schema::drop('services');
 	}
 
