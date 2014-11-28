@@ -1,15 +1,14 @@
 @extends('admin.layout')
 
-
-
-
 @section('content')
 
 
     <div class="row">
         <div class="col-md-12">
             @foreach($offices as $office)
-                <p><a href="{{ action('OfficeController@show', $office->id) }}">{{ $office->title }}</a></p>
+                <p>
+                    <a href="{{ action('OfficeController@show', $office->id) }}">{{ $office->title }}</a>
+                </p>
             @endforeach
         </div>
     </div>

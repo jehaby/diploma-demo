@@ -1,4 +1,4 @@
-@extends('layout.blade.php')
+@extends('admin.layout')
 
 @section('content')
 office delete

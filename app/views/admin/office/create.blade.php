@@ -74,7 +74,15 @@
             var slider_id = "#slider" + i;
             var checkbox_id = "#slider" + i + "-enabled";
 
-            $(slider_id).slider();
+            $(slider_id).slider({
+                tooltip_split: true ,
+                formatter: function(value) {
+                    value += '';
+                    if (value.indexOf('.') === -1) return value + ':00';
+                    return value.replace('.5', ':30');
+
+                }
+            });
 
             $(checkbox_id).click(function() {
                 console.log(checkbox_id);

@@ -95,6 +95,7 @@ return array(
 
 	'providers' => array(
 
+		'HieuLe\Active\ActiveServiceProvider',
 		'Illuminate\Foundation\Providers\ArtisanServiceProvider',
 		'Illuminate\Auth\AuthServiceProvider',
 		'Illuminate\Cache\CacheServiceProvider',
@@ -150,6 +151,7 @@ return array(
 
 	'aliases' => array(
 
+		'Active' => 'HieuLe\Active\Facades\Active',
 		'App'               => 'Illuminate\Support\Facades\App',
 		'Artisan'           => 'Illuminate\Support\Facades\Artisan',
 		'Auth'              => 'Illuminate\Support\Facades\Auth',

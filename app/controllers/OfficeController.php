@@ -12,7 +12,7 @@ class OfficeController extends \BaseController {
         // if manager then redirect to 2
         $offices = Office::all();
 
-		return View::make('admin.offices', compact('offices'));
+		return View::make('admin.office.index', compact('offices'));
 		//
 	}
 
@@ -25,7 +25,7 @@ class OfficeController extends \BaseController {
 	public function create()
 	{
 	// if manager then redirect to 2
-        return View::make('admin.office_create');
+        return View::make('admin.office.create');
 	}
 
 
@@ -99,7 +99,7 @@ class OfficeController extends \BaseController {
 	public function edit($id)
 	{
 		$office = Office::findOrFail($id);
-        return View::make('admin.office_edit')->with('office', $office);
+        return View::make('admin.office.edit')->with('office', $office);
 		//
 	}
 
@@ -113,6 +113,14 @@ class OfficeController extends \BaseController {
 	public function update($id)
 	{
 		//
+		$office = Office::findOrFail($id);
+		$office->title = Input::get('title');
+		$office->adress = Input::get('adress');
+		$office->phone = Input::get('phone');
+		$office->email = Input::get('email');
+		$office->save();
+
+		return Redirect::action('OfficeController@edit', $id);
 	}
 
 
@@ -124,6 +132,24 @@ class OfficeController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
+		$office = Office::findOrFail($id);
+		$schedule = $office->schedule()->getRelated();
+
+		d($office);
+		d($schedule);
+
+		d($office->schedule());
+		d($schedule->days());
+
+		$schedule->days()->detach();
+
+		return action('OfficeController@index');
+
+		$office->delete();
+
+		$schedule->delete();
+
+		return Redirect::action('OfficeController@index');
 		//
 	}
 

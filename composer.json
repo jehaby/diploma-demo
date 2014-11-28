@@ -6,7 +6,8 @@
 	"type": "project",
 	"require": {
 		"laravel/framework": "4.2.*",
-		"raveren/kint": "v0.9.1"
+		"raveren/kint": "v0.9.1",
+		"hieu-le/active": "1.3.0"
 	},
 	"autoload": {
 		"classmap": [

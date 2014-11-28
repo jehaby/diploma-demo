@@ -14,7 +14,14 @@
         </div>
     </div>
 
-    <form class="form-horizontal" role="form" method="POST" action="{{ url('admin/office')}}">
+    {{--{{Form::open(['class' => 'form-horizontal', 'role' => 'form', 'method' => 'PUT', 'action' => 'OfficeController@update' ])}}--}}
+    {{--{{ Form::text('wtf') }}--}}
+    {{--{{ Form::submit() }}--}}
+    {{--{{ Form::close() }}--}}
+
+    <form class="form-horizontal" role="form" method="POST" action="{{ action('OfficeController@update', ['id' => $office->id])}}">
+        <input name="_method" type="hidden" value="PUT">
+
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputTitle">Название</label>
             <div class="col-sm-10">
@@ -68,7 +75,7 @@
 
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">Добавить</button>
+                <button type="submit" class="btn btn-default">Изменить</button>
             </div>
         </div>
 
@@ -93,18 +100,20 @@
                 });
 
             }
-            //        $("#ex7").slider();
-            //        $("#ex8").slider();
-
 
         </script>
 
         {{ Form::token() }}
 
     </form>
-    {{d($office)}}
 
-
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-10">
+            {{ Form::open([ 'action' => ['OfficeController@destroy', $office->id], 'method' => 'DELETE']) }}
+            <button type="submit" class="btn btn-danger">Удалить</button>
+            {{ Form::close() }}
+        </div>
+    </div>
 
 @stop
 

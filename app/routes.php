@@ -27,7 +27,11 @@ Route::get('contacts', function()
     return View::make('contacts');
 });
 
-
-
 Route::resource('admin/office', 'OfficeController');
+Route::resource('admin/client', 'ClientController');
+Route::resource('admin/staff', 'StaffController');
+Route::resource('admin/record', 'RecordController');
+Route::resource('admin/schedule', 'ScheduleController');
+Route::resource('admin/service', 'ServiceController');
+
 
